@@ -42,7 +42,7 @@ directory_name() {
     echo "%~"
 }
 
-export PROMPT=$'$(directory_name)$(git_dirty)$ '
+export PROMPT=$'$(directory_name) $(git_dirty) $ '
 
 precmd() {
     RPROMPT=""
