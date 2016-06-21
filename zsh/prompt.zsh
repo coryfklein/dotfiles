@@ -25,11 +25,9 @@ git_dirty() {
 
 git_prompt_info () {
     ref=$($git symbolic-ref HEAD 2>/dev/null) || return
-    # echo "(%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%})"
     if [[ $(unpushed) == "" ]]
     then
         UNPUSHED=""
-        echo " "
     else
         UNPUSHED="%{$fg_bold[magenta]%}↑%{$reset_color%}"
     fi
@@ -41,7 +39,7 @@ unpushed () {
 }
 
 directory_name() {
-    echo "%{$fg_bold[cyan]%}%1/%{$reset_color%}"
+    echo "%~"
 }
 
 export PROMPT=$'$(directory_name)$(git_dirty)$ '
@@ -63,9 +61,8 @@ function zle-line-init zle-keymap-select {
 
 # VI mode code configuration from modified @dougblackio who provided original at http://dougblack.io/words/zsh-vi-mode.html
 bindkey -v
-
-bindkey '^P' up-history
-bindkey '^N' down-history
+bindkey '^B' up-history
+bindkey '^F' down-history
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
