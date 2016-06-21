@@ -51,7 +51,7 @@ precmd() {
 function zle-line-init zle-keymap-select {
     if [[ ${KEYMAP} == 'main' ]]
     then
-        RPROMPT="%{$fg_bold[cyan]%}%D %t%{$reset_color%}"
+        RPROMPT="%D%t"
     else
         VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
         RPROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
