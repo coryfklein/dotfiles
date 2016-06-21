@@ -43,20 +43,20 @@ directory_name() {
 }
 
 export PROMPT=$'$(directory_name)$(git_dirty)$ '
-set_prompt () {
-    export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
-}
 
 precmd() {
-    title "zsh" "%m" "%55<...<%~"
-    set_prompt
     RPROMPT=""
 }
 
 function zle-line-init zle-keymap-select {
-   VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
-   RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
-   zle reset-prompt
+    if [[ ${KEYMAP} == 'main' ]]
+    then
+        RPROMPT="%{$fg_bold[cyan]%}%D %t%{$reset_color%}"
+    else
+        VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+        RPROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
+    fi
+    zle reset-prompt
 }
 
 # VI mode code configuration from modified @dougblackio who provided original at http://dougblack.io/words/zsh-vi-mode.html
