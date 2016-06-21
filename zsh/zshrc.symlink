@@ -42,7 +42,7 @@ unsetopt nomatch
 
 # https://github.com/rupa/z
 # Frecency directory changing
-. ~/src/z/z.sh
+. ~/repos/z/z.sh
 
 # Don't ask if I want to rm *
 setopt rmstarsilent

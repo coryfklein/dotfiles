@@ -23,4 +23,4 @@ GIT_GREP_OPTIONS="-I"
 # If you leave this blank, then you must be in your source code base directory for multi to work.
 # Example:
 #   BASE_DIR="~/src"
-BASE_DIR="~/src"
+BASE_DIR="~/domo"
