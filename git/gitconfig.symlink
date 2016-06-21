@@ -1,0 +1,31 @@
+[push]
+	default = simple
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+	grep = auto
+	ui = true
+[alias]
+	st = status
+	ci = commit -v
+	br = branch
+	co = checkout
+	df = diff
+	lg = log --graph --pretty=format:'%C(red)%h%Creset %C(bold blue)%an%Creset %C(blue)<%ae>%Creset %Cgreen(%cr)%Creset%C(yellow)%d%Creset %n%n%s%n%n%b' --abbrev-commit --date=relative
+[rebase]
+	stat = true
+[log]
+	abbrevCommit = true
+[branch]
+    autosetuprebase = always
+[pull]
+    rebase = true
+[core]
+	editor = /usr/local/bin/vim
+	excludesfile = /Users/coryklein/.gitignore
+[diff]
+	tool = vim -d
+[merge]
+	tool = vim -d

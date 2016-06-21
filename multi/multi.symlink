@@ -1,0 +1,26 @@
+# Multi config
+# https://github.com/coryfklein/multi
+#
+##########################
+# REQUIRED CONFIGURATION #
+##########################
+
+# The names of all the repositories that you want to grep
+# Example:
+#   REPOS="vim spring-framework gradle phantomjs"
+REPOS="DomoWeb apiContent apiData apiIdentity apiLibrary apiSocial bedrock dataHub davinci domoadvanced domoapps domosaas fileConversion services-core-plugin"
+
+##########################
+# OPTIONAL CONFIGURATION #
+##########################
+
+# Options to always pass to git-grep
+# -I :: don't look in binary files
+GIT_GREP_OPTIONS="-I"
+
+# BASE_DIR is the source code base directory where all the repositories specified above in the REPOS variable exist.
+# Specifying this directory allows multi to search the specified repositories regardless of your current working directory.
+# If you leave this blank, then you must be in your source code base directory for multi to work.
+# Example:
+#   BASE_DIR="~/src"
+BASE_DIR="~/src"
