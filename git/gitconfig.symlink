@@ -29,3 +29,5 @@
 	tool = vim -d
 [merge]
 	tool = vim -d
+[include]
+	path = ~/.gitconfig.local

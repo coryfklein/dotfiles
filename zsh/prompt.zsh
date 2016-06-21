@@ -9,10 +9,6 @@ else
     git="/usr/bin/git"
 fi
 
-git_branch() {
-    echo $($git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
-}
-
 git_dirty() {
     if $(! $git status -s &> /dev/null)
     then
@@ -30,27 +26,25 @@ git_dirty() {
 git_prompt_info () {
     ref=$($git symbolic-ref HEAD 2>/dev/null) || return
     # echo "(%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%})"
-    echo "${ref#refs/heads/}"
+    if [[ $(unpushed) == "" ]]
+    then
+        UNPUSHED=""
+        echo " "
+    else
+        UNPUSHED="%{$fg_bold[magenta]%}↑%{$reset_color%}"
+    fi
+    echo "${ref#refs/heads/}${UNPUSHED}"
 }
 
 unpushed () {
     $git cherry -v @{upstream} 2>/dev/null
 }
 
-need_push () {
-    if [[ $(unpushed) == "" ]]
-    then
-        echo " "
-    else
-        echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%}"
-    fi
-}
-
 directory_name() {
     echo "%{$fg_bold[cyan]%}%1/%{$reset_color%}"
 }
 
-export PROMPT=$'$(directory_name) $(git_dirty)$(need_push)$ '
+export PROMPT=$'$(directory_name)$(git_dirty)$ '
 set_prompt () {
     export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
 }
@@ -58,4 +52,26 @@ set_prompt () {
 precmd() {
     title "zsh" "%m" "%55<...<%~"
     set_prompt
+    RPROMPT=""
 }
+
+function zle-line-init zle-keymap-select {
+   VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+   RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
+   zle reset-prompt
+}
+
+# VI mode code configuration from modified @dougblackio who provided original at http://dougblack.io/words/zsh-vi-mode.html
+bindkey -v
+
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+export KEYTIMEOUT=1
