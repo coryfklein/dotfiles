@@ -71,26 +71,9 @@ unsetopt nomatch
 # Don't ask if I want to rm *
 setopt rmstarsilent
 
-export HOMEBIN="${HOME}/bin"
-export DOMOVMDIR="${HOME}/domo/domovm"
-export RVMDIR="${HOME}/.rvm"
-export RVMBINDIR="${HOME}/.rvm/gems/ruby-2.2.1/bin"
-export RVMBINDIR2="$HOME/.rvm/bin"
-export K8SBINDIR="${HOME}/src/kubernetes/_output/local/go/bin"
-# Contains RVM paths
-export PATH="${K8SBINDIR}:${RVMBINDIR}:${RVMBINDIR2}:${RVMDIR}:${DOMOVMDIR}:${HOMEBIN}:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/opt/X11/bin:${PATH}"
-# Doesn't contain RVM paths
-#export PATH="${DOMOVMDIR}:${HOMEBIN}:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/opt/X11/bin:${PATH}"
 export EDITOR=vim
-export NODE_ENV=development
-export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
 bindkey -M vicmd v edit-command-line
 
-
-PATH="/Users/coryklein/perl5/bin${PATH+:}${PATH}"; export PATH;
-PERL5LIB="/Users/coryklein/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/Users/coryklein/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/Users/coryklein/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/coryklein/perl5"; export PERL_MM_OPT;
+source <(kubectl completion zsh)
 
