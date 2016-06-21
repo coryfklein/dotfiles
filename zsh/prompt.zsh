@@ -39,7 +39,7 @@ unpushed () {
 }
 
 directory_name() {
-    echo "%~"
+    echo "%{$fg[cyan]%}%~%{$reset_color%}"
 }
 
 export PROMPT=$'$(directory_name) $(git_dirty) $ '
