@@ -51,22 +51,15 @@ precmd() {
 function zle-line-init zle-keymap-select {
     if [[ ${KEYMAP} == 'main' ]]
     then
-        RPROMPT="%D%t"
+        RPROMPT=""
+        # Date disabled for now
+        #RPROMPT="%D%t"
     else
         VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
         RPROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
     fi
     zle reset-prompt
 }
-
-# VI mode code configuration from modified @dougblackio who provided original at http://dougblack.io/words/zsh-vi-mode.html
-bindkey -v
-bindkey '^B' up-history
-bindkey '^F' down-history
-bindkey '^?' backward-delete-char
-bindkey '^h' backward-delete-char
-bindkey '^w' backward-kill-word
-bindkey '^r' history-incremental-search-backward
 
 zle -N zle-line-init
 zle -N zle-keymap-select

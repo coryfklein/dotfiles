@@ -1,2 +1,4 @@
-export PATH="./bin:/usr/local/bin:/usr/local/sbin:$ZSH/bin:$PATH"
+export PATH="./bin:/usr/local/bin:/usr/local/sbin:/usr/local/opt/go/libexec/bin:$ZSH/bin:$HOME/.composer/vendor/bin:$PATH"
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
+export GOPATH=/Users/coryklein/go
+export PATH=/Users/coryklein/go/src/kubernetes/third_party/etcd:${PATH}

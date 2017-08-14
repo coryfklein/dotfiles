@@ -55,3 +55,21 @@ autoload edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
+zmodload zsh/terminfo
+bindkey "$terminfo[cuu1]" history-substring-search-up
+bindkey "$terminfo[cud1]" history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
+source /Users/coryklein/domo/tug/kubernetes-functions.sh
+
+# Interpret '#' chars as comments like in bash
+setopt interactivecomments
+
+export VIDIR_EDITOR_ARGS='-c :set nolist | :set ft=vidir-ls'
+
+function take() {
+  mkdir -p $1
+  cd $1
+}
+

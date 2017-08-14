@@ -5,23 +5,19 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " :PluginList          - list configured plugins
-Plugin 'gmarik/Vundle.vim'
-Plugin 'drmingdrmer/xptemplate'
-Plugin 'kien/ctrlp.vim'
-Plugin 'derekwyatt/vim-scala'
+Plugin 'VundleVim/Vundle.vim'
+" Plugin 'drmingdrmer/xptemplate'
+" Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tfnico/vim-gradle'
-Plugin 'pangloss/vim-javascript'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdtree'
-Plugin 'marijnh/tern_for_vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'rust-lang/rust.vim'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline'
 Plugin 'wellle/targets.vim'
 Plugin 'pearofducks/ansible-vim'
-Plugin 'leafgarland/typescript-vim'
+Plugin 'trapd00r/vim-syntax-vidir-ls'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -30,17 +26,8 @@ filetype plugin indent on    " required
 " Show airline before a split is made
 set laststatus=2
 
-" YouCompleteMe java support
-let g:EclimCompletionMethod = 'omnifunc'
-
 " Add Powerline symbols for vim-airline
 let g:airline_powerline_fonts = 1
-
-" YCM close documentation window when done
-autocmd CompleteDone * pclose
-
-" Whitelist autocomplete file types
-let g:ycm_filetype_whitelist = { 'cpp': 1, 'c': 1, 'javascript':1, 'python':1 }
 
 " Set diff splits to be vertical by default
 set diffopt+=vertical
@@ -111,8 +98,8 @@ set nowrap
 set nu
 
 " White space error
-set listchars=tab:>-,trail:-
-set list
+" set listchars=tab:>-,trail:-
+" set list
 
 " Color
 set bg=light
@@ -187,6 +174,12 @@ nmap <silent> cp :set opfunc=ChangePaste<CR>g@
 function! ChangePaste(type, ...)
     silent exe "normal! `[v`]\"_c"
     silent exe "normal! p"
+endfunction
+
+nmap <silent> cP :set opfunc=ChangePastePrev<CR>g@
+function! ChangePastePrev(type, ...)
+    silent exe "normal! `[v`]\"_c"
+    silent exe "normal! P"
 endfunction
 
 function! SortLines() range

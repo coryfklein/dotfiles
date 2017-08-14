@@ -28,6 +28,8 @@
 [diff]
 	tool = vim -d
 [merge]
-	tool = vim -d
+	tool = vimdiff
 [include]
 	path = ~/.gitconfig.local
+[url "git@github.com:"]
+    insteadOf = https://github.com/

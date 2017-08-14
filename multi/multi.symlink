@@ -8,7 +8,7 @@
 # The names of all the repositories that you want to grep
 # Example:
 #   REPOS="vim spring-framework gradle phantomjs"
-REPOS="DomoWeb apiContent apiData apiIdentity apiLibrary apiSocial bedrock dataHub davinci domoadvanced domoapps domosaas fileConversion services-core-plugin"
+REPOS="DomoWeb apiContent apiData apiIdentity apiLibrary apiSocial bedrock dataHub davinci domoadvanced domoapps domosaas fileConversion services-core-plugin maestrolibrary"
 
 ##########################
 # OPTIONAL CONFIGURATION #
