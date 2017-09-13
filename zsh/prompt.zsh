@@ -42,7 +42,13 @@ directory_name() {
     echo "%{$fg[cyan]%}%~%{$reset_color%}"
 }
 
-export PROMPT=$'$(directory_name) $(git_dirty) $ '
+ssh_host() {
+if [[ -n $SSH_CONNECTION ]]; then
+  echo "%{$fg[cyan]%}%m%{$reset_color%} "
+fi
+}
+
+export PROMPT=$'$(ssh_host)$(directory_name) $(git_dirty) $ '
 
 precmd() {
     RPROMPT=""
