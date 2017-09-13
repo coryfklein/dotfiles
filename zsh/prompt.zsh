@@ -44,7 +44,7 @@ directory_name() {
 
 ssh_host() {
 if [[ -n $SSH_CONNECTION ]]; then
-  echo "%{$fg[cyan]%}%m%{$reset_color%} "
+  echo "%{$fg[green]%}%m%{$reset_color%} "
 fi
 }
 
