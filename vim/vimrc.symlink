@@ -145,12 +145,15 @@ set scrolloff=3 " scroll buffer when within x lines of top/bottom
 " Don't hide lines that don't fit in the window
 set display+=lastline
 
-" Yank everything to system clipboard
-" See http://stackoverflow.com/questions/8757395/can-vim-use-the-system-clipboards-by-default
-" set clipboard=unnamedplus
+" yank to clipboard
+" http://www.markcampbell.me/2016/04/12/setting-up-yank-to-clipboard-on-a-mac-with-vim.html
+if has("clipboard")
+  set clipboard=unnamed " copy to the system clipboard
 
-" Yank everything to system clipboard (Mac OS X)
-set clipboard=unnamed
+  if has("unnamedplus") " X11 support
+    set clipboard+=unnamedplus
+  endif
+endif
 
 " Set color of tab line fill to black
 hi TabLine term=underline cterm=underline ctermfg=LightGray ctermbg=DarkGray gui=underline guibg=DarkGray

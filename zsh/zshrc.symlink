@@ -42,7 +42,7 @@ unsetopt nomatch
 
 # https://github.com/rupa/z
 # Frecency directory changing
-. ~/repos/z/z.sh
+. ~/.dotfiles/bin/z.sh
 
 # Don't ask if I want to rm *
 setopt rmstarsilent
@@ -61,8 +61,6 @@ bindkey "$terminfo[cud1]" history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-source /Users/coryklein/domo/tug/kubernetes-functions.sh
-
 # Interpret '#' chars as comments like in bash
 setopt interactivecomments
 
@@ -73,3 +71,8 @@ function take() {
   cd $1
 }
 
+source /usr/local/bin/virtualenvwrapper.sh
+
+# Needed when building sauce docker containers:
+# https://github.com/saucelabs/sauce/pull/3726
+eval $(minikube docker-env)

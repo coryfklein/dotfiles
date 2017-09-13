@@ -21,4 +21,6 @@ then
 
 fi
 
+brew install kubectl
+
 exit 0
