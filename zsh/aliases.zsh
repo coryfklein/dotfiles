@@ -1,3 +1,6 @@
+# grc overides for ls
+#   Made possible through contributions from generous benefactors like
+#   `brew install coreutils`
 alias reload!='. ~/.zshrc'
 alias gw="./gradlew"
 alias f='find . -name'
@@ -9,3 +12,13 @@ alias ...="cd ../../.."
 alias ls='ls --color=auto'
 alias ll='ls -l'
 alias la='ls -a'
+
+if $(gls &>/dev/null)
+then
+  alias ls="gls --color"
+  alias l="gls -lAh --color"
+  alias ll="gls -lh --color"
+  alias la='gls -Ah --color'
+fi
+
+alias rm="rm -f"
