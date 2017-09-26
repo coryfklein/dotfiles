@@ -22,5 +22,6 @@ then
 fi
 
 brew install kubectl
+brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt
 
 exit 0
