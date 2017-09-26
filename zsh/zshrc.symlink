@@ -71,8 +71,14 @@ function take() {
   cd $1
 }
 
-source /usr/local/bin/virtualenvwrapper.sh
+# source /usr/local/bin/virtualenvwrapper.sh
 
 # Needed when building sauce docker containers:
 # https://github.com/saucelabs/sauce/pull/3726
-eval $(minikube docker-env)
+# eval $(minikube docker-env)
+
+# Virtualenv
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/
+source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+source ~/setenv.sh
