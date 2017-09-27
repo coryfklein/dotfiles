@@ -12,6 +12,7 @@ alias ...="cd ../../.."
 alias ls='ls --color=auto'
 alias ll='ls -l'
 alias la='ls -a'
+alias cat='vimcat'
 
 if $(gls &>/dev/null)
 then
@@ -20,5 +21,7 @@ then
   alias ll="gls -lh --color"
   alias la='gls -Ah --color'
 fi
+
+greadlink --help &>/dev/null && alias readlink="greadlink -fn"
 
 alias rm="rm -f"

@@ -71,7 +71,6 @@ function take() {
   cd $1
 }
 
-# source /usr/local/bin/virtualenvwrapper.sh
 
 # Needed when building sauce docker containers:
 # https://github.com/saucelabs/sauce/pull/3726
@@ -80,5 +79,11 @@ function take() {
 # Virtualenv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/
-source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+
+if [ -e /usr/share/virtualenvwrapper/virtualenvwrapper.sh ]; then
+    source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+fi
+if [ -e /usr/share/virtualenvwrapper/virtualenvwrapper.sh ]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
 source ~/setenv.sh
