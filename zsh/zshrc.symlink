@@ -83,7 +83,14 @@ export PROJECT_HOME=$HOME/
 if [ -e /usr/share/virtualenvwrapper/virtualenvwrapper.sh ]; then
     source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 fi
-if [ -e /usr/share/virtualenvwrapper/virtualenvwrapper.sh ]; then
+if [ -e /usr/local/bin/virtualenvwrapper.sh ]; then
     source /usr/local/bin/virtualenvwrapper.sh
 fi
-source ~/setenv.sh
+if [ -e ~/setenv.sh ]; then
+    source ~/setenv.sh
+fi
+
+source $HOME/bin/google-cloud-sdk/completion.zsh.inc
+source $HOME/bin/google-cloud-sdk/path.zsh.inc
+
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`

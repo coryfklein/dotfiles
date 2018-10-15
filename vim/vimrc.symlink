@@ -8,23 +8,56 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " Plugin 'drmingdrmer/xptemplate'
 " Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'tfnico/vim-gradle'
+" Plugin 'tfnico/vim-gradle'
 Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-unimpaired'
+" Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdtree'
-"Plugin 'airblade/vim-gitgutter'
+Plugin 'ervandew/supertab'
+" Plugin 'sheerun/vim-polyglot'
+" Plugin 'Valloric/YouCompleteMe'
+" Plugin 'airblade/vim-gitgutter'
 " Plugin 'vim-airline/vim-airline'
-Plugin 'wellle/targets.vim'
-Plugin 'pearofducks/ansible-vim'
-Plugin 'trapd00r/vim-syntax-vidir-ls'
+" Plugin 'wellle/targets.vim'
+" Plugin 'pearofducks/ansible-vim'
+" Plugin 'trapd00r/vim-syntax-vidir-ls'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 " ===== END VUNDLE =====
 
+" Allow unsaved buffers in the background
+set hidden
+
+" Show line and column numbers
+set ruler
+
+" Open new splits on the right and the bottom
+set splitright
+set splitbelow
+
 " Show airline before a split is made
 set laststatus=2
+
+" Don't select first option on omnicomplete, and show menu even if only one
+" option
+set completeopt=longest,menuone
+
+" Use omnifunc for supertab completion before completefunc
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+
+" <Tab> will select current omnicomplete option
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
+
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 
 " Add Powerline symbols for vim-airline
 let g:airline_powerline_fonts = 1
@@ -36,6 +69,9 @@ set diffopt+=vertical
 " Press Space to turn off highlighting and clear any message already displayed.
 nnoremap <silent> <Space> :nohlsearch<CR>
 " <Bar>:echo<CR>A
+
+" Close the current buffer without closing the split
+nnoremap <C-c> :bp\|bd #<CR>
 
 " Commands to insert and append a single character
 nnoremap gi :exec "normal i".nr2char(getchar())."\e"<CR>
@@ -53,6 +89,9 @@ map gn :bn<cr>
 map gN :bp<cr>
 map gp :bp<cr>
 
+" Shorthand for :GoRun
+map gr :GoFmt<cr>:w<cr>:GoRun<cr>
+
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>
 
@@ -64,6 +103,7 @@ nmap ,tx :tabc<CR>
 nmap ,to :tabo<CR>
 nmap ,te :tabe 
 nmap ,tf :tabf 
+nmap ,z :qa!<CR>
 
 nmap __ :wa<CR>
 
@@ -76,6 +116,7 @@ nmap <C-d> Lzz
 nmap <C-u> Hzz
 
 if version >= 703
+  silent !mkdir -p ~/.vim/undo
   set undofile                " Save undo's after file closes
   set undodir=/Users/coryklein/.vim/undo " where to save undo histories
   set undolevels=1000         " How many undos
@@ -115,10 +156,16 @@ set wildmenu
 " set cursorline
 
 " Indents, Tabs, & Misc
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set expandtab
 autocmd FileType html setlocal shiftwidth=4 tabstop=4
+autocmd FileType groovy setlocal shiftwidth=2 tabstop=2
+
+" File type extensions
+au BufNewFile,BufRead *.jenkinsfile set filetype=groovy
+au BufNewFile,BufRead Jenkinsfile set filetype=groovy
+au BufNewFile,BufRead Jenkinsfile.* set filetype=groovy
 
 " Crontab
 autocmd filetype crontab setlocal nobackup nowritebackup
@@ -194,6 +241,12 @@ endfunction
 " File type recognition
 filetype plugin indent on
 
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 " Command to diffput to all buffers
 " See http://stackoverflow.com/questions/19594802/diffput-to-multiple-buffers
 function! GetDiffBuffers()
@@ -219,27 +272,6 @@ function! FindGitDirOrRoot()
 endfunction
 
 set wildignore+=*.class,*.git,*/out/*
-
-"-----------------------------------------------------------------------------
-" CtrlP plugin configuration
-"-----------------------------------------------------------------------------
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = {
-  \ 'dir': '/build/'
-  \ }
-
-nmap ,fb :CtrlPBuffer<cr>
-nmap ,ff :CtrlP .<cr>
-nmap ,fF :execute ":CtrlP " . expand('%:p:h')<cr>
-nmap ,fr :CtrlP<cr>
-nmap ,fm :CtrlPMixed<cr>
-
-
-"-----------------------------------------------------------------------------
-" vim-scala configuration
-"-----------------------------------------------------------------------------
-let g:scala_sort_across_groups=1
-let g:scala_first_party_namespaces='\(com\)'
 
 "-----------------------------------------------------------------------------
 " \w for better movement when writing novels with line wrapping
@@ -282,3 +314,5 @@ function ToggleWrap()
     inoremap <buffer> <silent> <End>  <C-o>g<End>
   endif
 endfunction
+
+let g:tar_cmd="/usr/local/bin/gtar"

@@ -8,7 +8,7 @@
 # The names of all the repositories that you want to grep
 # Example:
 #   REPOS="vim spring-framework gradle phantomjs"
-REPOS="DomoWeb apiContent apiData apiIdentity apiLibrary apiSocial bedrock dataHub davinci domoadvanced domoapps domosaas fileConversion services-core-plugin maestrolibrary"
+REPOS="sauce monocle-redis ondemand-lib sauce-lib cyborg cloud-manager k8s-bundle-server le-build-utils k8s-chef-pod saucy"
 
 ##########################
 # OPTIONAL CONFIGURATION #
@@ -23,4 +23,4 @@ GIT_GREP_OPTIONS="-I"
 # If you leave this blank, then you must be in your source code base directory for multi to work.
 # Example:
 #   BASE_DIR="~/src"
-BASE_DIR="~/domo"
+BASE_DIR="~/code"
