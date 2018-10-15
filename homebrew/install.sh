@@ -23,5 +23,6 @@ fi
 
 brew install kubectl
 brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt
+brew install vimcat
 
 exit 0
