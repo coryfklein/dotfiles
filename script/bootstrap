@@ -131,17 +131,6 @@ install_dotfiles () {
   done
 }
 
-install_submodules () {
-  info 'installing submodules'
-
-  for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name 'install.sh' -not -path '*.git')
-  do
-    pushd "$(dirname src)"
-    ./install.sh
-    popd
-  done
-}
-
 setup_gitconfig
 install_dotfiles
 
