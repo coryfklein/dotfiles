@@ -23,6 +23,8 @@ fi
 
 brew install kubectl
 brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt
+brew cask install xquartz
+brew install vim --with-client-server
 brew install vimcat
 
 exit 0
