@@ -71,11 +71,6 @@ function take() {
   cd $1
 }
 
-
-# Needed when building sauce docker containers:
-# https://github.com/saucelabs/sauce/pull/3726
-# eval $(minikube docker-env)
-
 # Virtualenv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/
@@ -94,3 +89,28 @@ fi
 # source $HOME/bin/google-cloud-sdk/path.zsh.inc
 
 # export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+
+#############################################################################
+# From https://iterable.quip.com/bLH8AXE30Ixv/Development-Environment-Setup #
+#############################################################################
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+if [[ -f "$HOME/.okta/bash_functions" ]]; then
+    . "$HOME/.okta/bash_functions"
+fi
+if [[ -d "$HOME/.okta/bin" && ":$PATH:" != *":$HOME/.okta/bin:"* ]]; then
+    PATH="$HOME/.okta/bin:$PATH"
+fi
+export EC2_SSH_USER=ec2-user
+export SBT_OPTS="-Xmx4G -Xms2G -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -Xss2M"
+#############################################################################
+#                                    END                                    #
+#############################################################################
+export PATH=$HOME/bin:$PATH
+export PATM=$HOME/.gem/ruby/2.6.0/bin:$PATH
+export ANDROID_HOME=/Users/cory.klein/Library/Android/sdk
+export ANDROID_SDK_ROOT=/Users/cory.klein/Library/Android/sdk
+
+eval "$(rbenv init -)"

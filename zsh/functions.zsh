@@ -1,3 +1,16 @@
+pwd() {
+  RES=$(command pwd)
+  echo $RES | tr -d '\n' | pbcopy
+  echo $RES
+}
+
+# "git file" - copies to the clipboard a url that will take you to the file in GitHub
+gf() {
+  RES=$(git ls-files | grep $1 | ~/bin/git-find-url/git-find-url $1)
+  echo $RES
+  echo -n $RES | pbcopy
+}
+
 kpw() {
     kubectl get pods -w --show-all=false | xargs -L1 printf "%-60s %-5s %-20s %-8s %-5s\n"
 }
@@ -61,16 +74,21 @@ jlint() {
 }
 
 lb() {
-    vim ~/logbook/$(date '+%Y-%m-%d').md
+    vim "+let g:auto_save=1" ~/logbook/$(date '+%Y-%m-%d').md
 }
 
 f() {
   FILE=$(find . -name $1)
   if [ -n "$FILE" ]; then
-    ABSOLUTE=$(readlink -f $FILE)
+    ABSOLUTE=$(greadlink -f $FILE)
   fi
   echo -n $ABSOLUTE | pbcopy
   echo $FILE
+}
+
+vf() {
+  FILE=$(find . -name $1 | head -n1)
+  vim $FILE
 }
 
 readlink() {

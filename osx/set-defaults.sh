@@ -21,7 +21,7 @@ chflags nohidden ~/Library
 
 # Set a really fast key repeat.
 defaults write NSGlobalDomain KeyRepeat -int 1
-defaults write NSGlobalDomain InitialKeyRepeat -int 10
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
 # defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
 
 # Run the screensaver if we're in the bottom-left hot corner.

@@ -13,11 +13,11 @@
 	br = branch
 	co = checkout
 	df = diff
-	lg = log --graph --pretty=format:'%C(red)%h%Creset %C(bold blue)%an%Creset %C(blue)<%ae>%Creset %Cgreen(%cr)%Creset%C(yellow)%d%Creset %n%n%s%n%n%b' --abbrev-commit --date=relative
+  cb = !sh -c \"git branch -a | grep -v remotes | grep $1 | head -n 1 | xargs git checkout\"
+	lg = log --graph --pretty=format:'%C(red)%h%Creset %C(bold blue)%an%Creset %C(blue)<%ae>%Creset %Cgreen(%cr)%Creset%C(yellow)%d%Creset %n%n%s%n%n%b' --abrev-commit --date=relative
+  pb = "!git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)"
 [rebase]
 	stat = true
-[log]
-	abbrevCommit = true
 [branch]
     autosetuprebase = always
 [pull]

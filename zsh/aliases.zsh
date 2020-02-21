@@ -16,7 +16,8 @@ alias la='ls -a'
 alias cat='vimcat'
 alias history='history 0'
 alias sauce='shovel'
-alias pwd="pwd | tr -d '\n' | tee /dev/tty | pbcopy"
+# Moved to functions since this doesn't support SAVE_VALUE=$(pwd)
+# alias pwd="pwd | tr -d '\n' | tee /dev/tty | pbcopy"
 
 if $(gls &>/dev/null)
 then
