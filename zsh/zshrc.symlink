@@ -1,3 +1,12 @@
+# For profiling terminal startup time
+# zmodload zsh/zprof
+
+# START MANUAL PROFILING
+# PS4=$'+ %D{%s.%6.}\011 '
+# exec 3>&2 2>>/tmp/bashstart.$$.log
+# set -x
+# END PROFILING
+
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
 
@@ -49,7 +58,8 @@ setopt rmstarsilent
 
 export EDITOR=vim
 
-source <(kubectl completion zsh)
+# Disabled to speed up zsh startup loadtime
+# source <(kubectl completion zsh)
 
 autoload edit-command-line
 zle -N edit-command-line
@@ -93,10 +103,6 @@ fi
 #############################################################################
 # From https://iterable.quip.com/bLH8AXE30Ixv/Development-Environment-Setup #
 #############################################################################
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
 if [[ -f "$HOME/.okta/bash_functions" ]]; then
     . "$HOME/.okta/bash_functions"
 fi
@@ -104,7 +110,13 @@ if [[ -d "$HOME/.okta/bin" && ":$PATH:" != *":$HOME/.okta/bin:"* ]]; then
     PATH="$HOME/.okta/bin:$PATH"
 fi
 export EC2_SSH_USER=ec2-user
-export SBT_OPTS="-Xmx4G -Xms2G -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -Xss2M"
+export SBT_OPTS="-Xmx10G -Xms2G -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -Xss2M"
+
+export PATH=~/Library/Python/2.7/bin/:$PATH
+# Moved to ~/.profile so it only runs once on login
+# if command -v pyenv 1>/dev/null 2>&1; then
+#   eval "$(pyenv init -)"
+# fi
 #############################################################################
 #                                    END                                    #
 #############################################################################
@@ -113,4 +125,37 @@ export PATM=$HOME/.gem/ruby/2.6.0/bin:$PATH
 export ANDROID_HOME=/Users/cory.klein/Library/Android/sdk
 export ANDROID_SDK_ROOT=/Users/cory.klein/Library/Android/sdk
 
-eval "$(rbenv init -)"
+# Disabled to improve tab loading time
+# eval "$(rbenv init -)"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+### DOESNT WORK IN ZSH BECAUSE IT RELIES ON BASHISMS
+# Defer initialization of nvm until nvm, node or a node-dependent command is
+# run. Ensure this block is only run once if .bashrc gets sourced multiple times
+# by checking whether __init_nvm is a function.
+# if [ -s "/usr/local/opt/nvm/nvm.sh" ] && [ ! "$(type -t __init_nvm)" = function ]; then
+#   export NVM_DIR="$HOME/.nvm"
+#   [ -s "$NVM_DIR/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"
+#   declare -a __node_commands=('nvm' 'node' 'npm' 'yarn' 'gulp' 'grunt' 'webpack')
+#   function __init_nvm() {
+#     for i in "${__node_commands[@]}"; do unalias $i; done
+#     . /usr/local/opt/nvm/nvm.sh
+#     unset __node_commands
+#     unset -f __init_nvm
+#   }
+#   for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
+# fi
+
+# This is the old and slow way that the above block is meant to get around
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+
+
+# START MANUAL PROFILING
+# set +x
+# exec 2>&3 3>&-
+# END PROFILING
+
+# Run sbt server
+export SBT_NATIVE_CLIENT=true

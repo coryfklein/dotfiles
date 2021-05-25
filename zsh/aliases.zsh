@@ -13,7 +13,6 @@ alias ....="cd ../../../.."
 alias ls='ls --color=auto'
 alias ll='ls -l'
 alias la='ls -a'
-alias cat='vimcat'
 alias history='history 0'
 alias sauce='shovel'
 # Moved to functions since this doesn't support SAVE_VALUE=$(pwd)

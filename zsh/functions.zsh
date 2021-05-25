@@ -74,7 +74,42 @@ jlint() {
 }
 
 lb() {
-    vim "+let g:auto_save=1" ~/logbook/$(date '+%Y-%m-%d').md
+  IFS='' read -r -d '' TEMPLATE <<"EOF"
+Worked On Yesterday:
+
+Worked On Today:
+
+Planned For Today:
+
+Next Up:
+
+Notes:
+EOF
+
+  LOGBOOK=$HOME/logbook
+  if [ ! -d $LOGBOOK ]; then
+    mkdir $LOGBOOK
+  fi
+
+  # From https://stackoverflow.com/questions/5383927/bash-shell-script-for-yesterdays-date-last-working-day
+  DAY_OR_WEEK=`date +%w`
+  if [ $DAY_OR_WEEK == 1 ] ; then
+    LOOK_BACK=3
+  else
+    LOOK_BACK=1
+  fi
+
+  YESTERDAY=$LOGBOOK/$(gdate -d "$LOOK_BACK day ago" '+%Y-%m-%d').md
+  TODAY=$LOGBOOK/$(date '+%Y-%m-%d').md
+
+  if [ ! -f $TODAY ]; then
+    echo $TEMPLATE > $TODAY
+  fi
+  if [ ! -f $YESTERDAY ]; then
+    echo $TEMPLATE > $YESTERDAY
+  fi
+
+  vim -O "+let g:auto_save=1" $TODAY $YESTERDAY
 }
 
 f() {

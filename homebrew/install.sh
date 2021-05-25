@@ -24,6 +24,6 @@ fi
 brew install kubectl
 brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt
 brew cask install xquartz
-brew install vimcat
+brew install watch
 
 exit 0
